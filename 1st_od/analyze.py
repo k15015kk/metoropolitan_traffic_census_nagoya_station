@@ -31,21 +31,14 @@ def convert_csv_to_frame(path):
   # すべてのファイル名を取得
   filenames = glob.glob(path)
 
-  # 読み込まないファイルを定義
-  not_read_filenames = ['extract.csv']
-
   # ヘッダーが存在するファイル名を定義
-  with_header_filenames = ['01.csv', '07.csv']
+  with_header_filenames = ['input/01.csv', 'input/07.csv']
 
   frame_list = []
 
   for filename in filenames:
 
     print(f'reading: {filename}')
-
-    # 読み込まないファイルの場合
-    if filename in not_read_filenames:
-      continue
 
     if filename in with_header_filenames:
       # ヘッダー行があるとき
@@ -83,18 +76,18 @@ def extract_from_route_name(frame, company_name, line_name, station_name):
 def main():
 
   # 全体のデータフレームを作成
-  frame = convert_csv_to_frame(path='*.csv')
+  frame = convert_csv_to_frame(path='input/*.csv')
 
   # 事業者名と路線名を指定してデータを抽出（入場記録）
   extract_frame = extract_from_route_name(
     frame, 
-    company_name='東海旅客鉄道', 
-    line_name='東海道新幹線',
-    station_name='名古屋'
+    company_name='名古屋鉄道', 
+    line_name='名古屋本線',
+    station_name='名鉄名古屋'
   )
 
   # 抽出データをcsvファイルに書き出し
-  extract_frame.to_csv('extract.csv', index=False)
+  extract_frame.to_csv('output/extract.csv', index=False)
 
 if __name__ == "__main__":
   main()

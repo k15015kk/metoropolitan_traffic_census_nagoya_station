@@ -30,14 +30,14 @@ def convert_csv_to_frame(filename):
 def main():
 
   # 全体のデータフレームを作成
-  frame = convert_csv_to_frame(filename='extract_jrtokai.csv')
+  frame = convert_csv_to_frame(filename='output/extract_jrtokai.csv')
 
   sum_frame = frame.loc[:,['【出場】駅名','【出場】事業者名','【出場】路線名','人数']].groupby(['【出場】駅名','【出場】事業者名','【出場】路線名']).sum()
 
   print(sum_frame)
 
   # 抽出データをcsvファイルに書き出し
-  sum_frame.to_csv('exit_count.csv', index=True)
+  sum_frame.to_csv('output/exit_count.csv', index=True)
 
 if __name__ == "__main__":
   main()
